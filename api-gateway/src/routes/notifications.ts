@@ -70,7 +70,7 @@ export default async function notificationRoutes(fastify: FastifyInstance) {
           },
         },
       },
-      // preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate],
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
       const {
