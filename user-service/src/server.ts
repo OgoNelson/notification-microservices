@@ -85,6 +85,9 @@ async function registerPlugins() {
       deepLinking: false
     }
   })
+
+  // Register user routes
+  server.register(import('./routes/users'))
 }
 
 // Health check endpoint

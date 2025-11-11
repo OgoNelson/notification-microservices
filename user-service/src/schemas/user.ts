@@ -1,8 +1,7 @@
-
 import { FastifySchema } from 'fastify'
 
 // User schemas following snake_case convention
-export const userCreateSchema: FastifySchema = {
+export const userCreateSchema = {
   type: 'object',
   properties: {
     name: { 
@@ -41,7 +40,7 @@ export const userCreateSchema: FastifySchema = {
   additionalProperties: false
 }
 
-export const userUpdateSchema: FastifySchema = {
+export const userUpdateSchema = {
   type: 'object',
   properties: {
     name: { 
@@ -71,7 +70,7 @@ export const userUpdateSchema: FastifySchema = {
   additionalProperties: false
 }
 
-export const userResponseSchema: FastifySchema = {
+export const userResponseSchema = {
   type: 'object',
   properties: {
     success: { type: 'boolean' },
@@ -97,7 +96,7 @@ export const userResponseSchema: FastifySchema = {
   }
 }
 
-export const userListResponseSchema: FastifySchema = {
+export const userListResponseSchema = {
   type: 'object',
   properties: {
     success: { type: 'boolean' },
@@ -136,7 +135,7 @@ export const userListResponseSchema: FastifySchema = {
   }
 }
 
-export const userLoginSchema: FastifySchema = {
+export const userLoginSchema = {
   type: 'object',
   properties: {
     email: { 
@@ -153,7 +152,7 @@ export const userLoginSchema: FastifySchema = {
   additionalProperties: false
 }
 
-export const userLoginResponseSchema: FastifySchema = {
+export const userLoginResponseSchema = {
   type: 'object',
   properties: {
     success: { type: 'boolean' },
@@ -178,7 +177,7 @@ export const userLoginResponseSchema: FastifySchema = {
   }
 }
 
-export const passwordChangeSchema: FastifySchema = {
+export const passwordChangeSchema = {
   type: 'object',
   properties: {
     current_password: { 
@@ -188,3 +187,33 @@ export const passwordChangeSchema: FastifySchema = {
     new_password: { 
       type: 'string', 
       minLength: 8, 
+      maxLength: 128,
+      description: 'New password' 
+    }
+  },
+  required: ['current_password', 'new_password'],
+  additionalProperties: false
+}
+
+// Path parameters
+export const userIdParamSchema = {
+  type: 'object',
+  properties: {
+    user_id: { type: 'string', format: 'uuid' }
+  },
+  required: ['user_id']
+}
+
+// Query parameters for listing users
+export const userListQuerySchema = {
+  type: 'object',
+  properties: {
+    page: { type: 'integer', minimum: 1, default: 1 },
+    limit: { type: 'integer', minimum: 1, maximum: 100, default: 20 },
+    search: { type: 'string', minLength: 1, maxLength: 100 },
+    email_enabled: { type: 'boolean' },
+    push_enabled: { type: 'boolean' },
+    created_after: { type: 'string', format: 'date-time' },
+    created_before: { type: 'string', format: 'date-time' }
+  }
+}
