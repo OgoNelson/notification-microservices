@@ -1,4 +1,3 @@
-
 // Notification schemas following snake_case convention
 
 export const notificationRequestSchema = {
@@ -157,3 +156,20 @@ export const notificationListQuerySchema = {
   type: 'object',
   properties: {
     user_id: { type: 'string', format: 'uuid' },
+    notification_type: { type: 'string', enum: ['email', 'push'] },
+    status: { type: 'string', enum: ['pending', 'queued', 'processing', 'sent', 'delivered', 'failed'] },
+    page: { type: 'integer', minimum: 1, default: 1 },
+    limit: { type: 'integer', minimum: 1, maximum: 100, default: 20 },
+    start_date: { type: 'string', format: 'date-time' },
+    end_date: { type: 'string', format: 'date-time' }
+  }
+}
+
+// Path parameters
+export const notificationIdParamSchema = {
+  type: 'object',
+  properties: {
+    notification_id: { type: 'string', format: 'uuid' }
+  },
+  required: ['notification_id']
+}
